@@ -1,0 +1,14 @@
+description "atheme IRC services (NickServ, ChanServ, etc)"
+
+start on starting rc RUNLEVEL=[2345]
+stop on runlevel [06]
+
+setuid <%= node['atheme-services']['user'] %>
+setgid <%= node['atheme-services']['group'] %>
+
+respawn
+respawn limit 3 30
+
+expect fork
+exec atheme-services
+
